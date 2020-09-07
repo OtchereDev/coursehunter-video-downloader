@@ -30,3 +30,8 @@ Course_links : url to the course (eg. https://coursehunter.net/course_name)
 ## Author:
 
 -   [Oliver Otchere](https://github.com/OtchereDev)
+
+
+### Inspiration:
+
+-  This is a python port of [ch-download](https://github.com/alekseylovchikov/ch-download) by [Alekseylovchikov](https://github.com/alekseylovchikov) but has support for current restructuring of the website
