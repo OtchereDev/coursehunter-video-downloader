@@ -1,0 +1,5 @@
+###### Required packages needed ######`
+requests
+robobrowser
+colorama
+tqdm
