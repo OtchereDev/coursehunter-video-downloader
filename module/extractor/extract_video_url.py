@@ -77,10 +77,10 @@ def title_url(break_with_title: list):
             dict_  = dict_.rstrip('},')
 
 
-        parts_of_dict = dict_.split(',')
+        parts_of_dict = dict_.split(',"')
 
         for k in parts_of_dict:
-            if k[0:6]=='"file"':
+            if k[0:5]=='file"':
                 main_link = k.split(':',maxsplit=1)[-1]
                 links.append(main_link) 
 
