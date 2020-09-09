@@ -2,7 +2,7 @@
 
 # Download videos (course) from coursehunter.net
 
-### How to install needed packages ( Python 3.* required):
+### How to install needed packages ( Python 3.\* required):
 
 ```sh
 ~ git clone https://github.com/OtchereDev/coursehunter-video-downloader.git
@@ -29,9 +29,8 @@ Course_links : url to the course (eg. https://coursehunter.net/course_name)
 
 ## Author:
 
--   [Oliver Otchere](https://github.com/OtchereDev)
-
+- [Oliver Otchere](https://github.com/OtchereDev)
 
 ### Inspiration:
 
--  This is a python port of [ch-download](https://github.com/alekseylovchikov/ch-download) by [Alekseylovchikov](https://github.com/alekseylovchikov) but has support for current restructuring of the website
+- This is a python port of [ch-download](https://github.com/alekseylovchikov/ch-download) by [Alekseylovchikov](https://github.com/alekseylovchikov) but has support for current restructuring of the website
