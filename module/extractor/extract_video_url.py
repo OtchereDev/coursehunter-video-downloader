@@ -31,7 +31,7 @@ def sign_in_and_extractHTML(user_email: str,password: str, course_link:str):
 
 def draw_out_script(src):
 
-    search = str(src.find_all('script')[2])
+    search = str(src.find_all('script')[2:4])
 
     return search
 
