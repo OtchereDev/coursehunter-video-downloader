@@ -7,7 +7,7 @@
 ```sh
 ~ git clone https://github.com/OtchereDev/coursehunter-video-downloader.git
 ~ cd coursehunter-video-downloader
-~ pip install -r requirement.txt
+~ pip install -r requirements.txt
 ```
 
 ### Download premium courses (required paid subscription)
