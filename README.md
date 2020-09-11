@@ -25,6 +25,9 @@ Email: email for login
 Password: password for login
 
 Course_links : url to the course (eg. https://coursehunter.net/course_name)
+
+Would you like to download the course material: Y to download course material 
+                                                N or Enter skip downloading it 
 ```
 
 ## Author:

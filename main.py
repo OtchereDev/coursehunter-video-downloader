@@ -1,6 +1,6 @@
 from module.create import create_folder, create_logger
 
-from module.extractor import extract_video, extract_video_url
+from module.extractor import extract_video, extract_video_url, extract_material_url_and_download
 
 from colorama import Fore
 
@@ -49,6 +49,15 @@ try:
             if download == True:
 
                 extract_video.update_logger(logger_path, title)
+
+        download_course_mat =input('Would you like to download the course material:'
+                                    + '\n [Y]es to download or [N]o to skip: \n\t')
+
+        if download_course_mat.upper()=='Y':
+            
+            material_url = extract_material_url_and_download.extract_course_material_url(src)
+
+            extract_material_url_and_download.extract_course_material(material_url,course_path)
 
     except ValueError as ve:
         print('\nIncorrect log-in details...Retry with correct log-in details\n')
