@@ -42,6 +42,8 @@ try:
 
         zipped_title_url = extract_video_url.title_url(break_with_title)
 
+        print(f'\nThere are {len(zipped_title_url)} lessons in this course !!!\n')
+
         download_type = input('Which type of download '
             + 'would you like to make: \n\t [S]ingle lesson, '
             + '[R]ange of lessons, [A]ll lessons:\n\t')
@@ -70,7 +72,11 @@ try:
             
             material_url = extract_material_url_and_download.extract_course_material_url(src)
 
-            extract_material_url_and_download.extract_course_material(material_url,course_path)
+            if material_url:
+
+                extract_material_url_and_download.extract_course_material(material_url,course_path)
+            else:
+                print('This course does not have materials attached !!!')
 
     except ValueError as ve:
         print('\nIncorrect log-in details...Retry with correct log-in details\n')

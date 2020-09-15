@@ -17,7 +17,8 @@ def extract_course_material_url(src):
         for a in src.find_all('a',class_='btn mb-15 mr-10')
         ]
 
-    return i[1]
+    if len(i) == 2:
+        return i[1]
 
 
 def extract_course_material(url,path,title='course-material'):

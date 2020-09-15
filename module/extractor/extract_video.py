@@ -14,11 +14,9 @@ def extract_video(url,title,path):
     
     link = url
 
+    lesson_number,title = format_vid_name(title)
+    
     name = title
-
-    lesson_number = title.split(')')[0].strip()
-
-    title = title.split(')')[-1].strip()
 
     title = os.path.join(path, title + '.mp4')
     
@@ -27,7 +25,6 @@ def extract_video(url,title,path):
     r = requests.get(link, stream=True)
 
     total_size = int(r.headers['content-length'])
-
 
     if not os.path.exists(fr'{title}'):
 
@@ -78,4 +75,17 @@ def update_logger(logger_path,title):
 
     print(f'\n{Fore.BLUE} Logger file update{Style.RESET_ALL}')
 
+
+def format_vid_name(title):
+
+    lesson_number = title.split(')')[0].strip()
+
+    for i in ['/',':','*','?','"','<','>','\\']:
+        if i in title:
+            title=title.replace(i,'')
+
+    title=''.join(' '+ char if char.isupper() else \
+        char.strip() for char in title).strip()
+
+    return lesson_number, title
     
