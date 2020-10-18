@@ -16,6 +16,8 @@ def initialise_gui():
             [sg.Input(key='password')],
             [sg.Text("Course link")],
             [sg.Input(key='url')],
+            [sg.Text("File:"), sg.Text(key='file')],
+            [sg.Text("Path:"), sg.Text(key='path')],
             [sg.Text(size=(60,6), key='information_field')],
             [sg.Button('Start download', key='download_button'), sg.Button('Quit')]]
 

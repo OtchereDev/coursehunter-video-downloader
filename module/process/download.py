@@ -31,6 +31,10 @@ def download(user_email, password, course_link, window=None, information_field=N
 
             zipped_title_url = extract_video_url.title_url(break_with_title)
 
+            if isGUI:
+                window['file'].update(zipped_title_url[0])
+                window['path'].update(course_path)
+
             display_text(f'\nThere are {len(zipped_title_url)} lessons in this course !!!\n', window, information_field)
 
             download_type = input_field('Which type of download '
