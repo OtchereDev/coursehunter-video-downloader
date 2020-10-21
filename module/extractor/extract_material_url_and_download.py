@@ -3,12 +3,11 @@ import requests
 
 import os
 
-from tqdm import tqdm
-
 from colorama import Fore
 
 from colorama import Style
 
+from module.extractor import download_iterator
 
 def extract_course_material_url(src):
 
@@ -21,7 +20,7 @@ def extract_course_material_url(src):
         return i[1]
 
 
-def extract_course_material(url,path,title='course-material'):
+def extract_course_material(url, path, title='course-material', isGUI=False, element={}, window=None):
 
     title = os.path.join(path, title + '.zip')
     
@@ -33,32 +32,31 @@ def extract_course_material(url,path,title='course-material'):
 
     if not os.path.exists(fr'{title}'):
 
-        print(f'\nDownloading course material......\n')
+        if not isGUI:
+            print(f'\nDownloading course material......\n')
 
-        with open(fr'{title}', 'wb') as f:
+        download_iterator.download_and_save_iterator(r, chunk_size, total_size, title, isGUI, window, element)
 
-            for data in tqdm(iterable=r.iter_content(chunk_size=chunk_size),
-                total= total_size/chunk_size, unit='KB'):
-
-                f.write(data)
-
-        print(f'\n{Fore.GREEN}Done downloading course material {Style.RESET_ALL}')
+        if not isGUI:
+            print(f'\n{Fore.GREEN}Done downloading course material {Style.RESET_ALL}')
 
     else:
 
-        print(f'\n{Fore.RED}Course material already exist....{Style.RESET_ALL}\n')
+        if not isGUI:
+            print(f'\n{Fore.RED}Course material already exist....{Style.RESET_ALL}\n')
 
         file_size = os.stat(title).st_size
 
 
         if  file_size != total_size:
-            print('Updating old course material...\n')
+            if not isGUI:
+                print('Updating old course material...\n')
 
-            with open(title, 'wb') as f:
-
-                for data in tqdm(iterable=r.iter_content(chunk_size=chunk_size),
-                    total= total_size/chunk_size, unit='KB'):
-
-                    f.write(data)
+            download_iterator.download_and_save_iterator(r, chunk_size, total_size, title, isGUI, window, element)
             
-            print(f'{Fore.GREEN}Content updated.....{Style.RESET_ALL}\n')
+            if not isGUI:
+                print(f'{Fore.GREEN}Content updated.....{Style.RESET_ALL}\n')
+        else:
+            if isGUI:
+                window[element['progress_bar_key']].update(100)
+                window[element['percent_key']].update('-')

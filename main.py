@@ -1,6 +1,6 @@
 from module.process import download
 
-from module.gui import render_gui
+from module.gui import login, file_select
 
 from colorama import Fore
 
@@ -18,11 +18,8 @@ if "-gui" in sys.argv:
 if "-cli" in sys.argv:
     gui_mode = False
 
-from module.process import input_field
-
-
 if gui_mode:
-    render_gui.initialise_gui()
+    login.render_login()
 else:
     print(f'{Fore.GREEN}+++++++++++++++++++++++++++++++++++++++++++++++++++{Style.RESET_ALL}')
     print()

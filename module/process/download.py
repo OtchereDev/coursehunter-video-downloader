@@ -4,14 +4,14 @@ from module.extractor import extract_video, extract_video_url
 
 from module.extractor import extract_material_url_and_download , download_mode
 
-from module.process.display_text import display_text
+from module.gui import file_select
 
-from module.process.input_field import input_field
+from module.process.display_text import display_text
 
 import requests.exceptions
 
 def download(user_email, password, course_link, window=None, information_field=None):
-    isGUI = window == None
+    isGUI = window != None
 
     course_path = create_folder.makeDownloadFolderPath(course_link)
 
@@ -31,45 +31,49 @@ def download(user_email, password, course_link, window=None, information_field=N
 
             zipped_title_url = extract_video_url.title_url(break_with_title)
 
+            material_url = extract_material_url_and_download.extract_course_material_url(src)
+
             if isGUI:
-                window['file'].update(zipped_title_url[0])
-                window['path'].update(course_path)
+                #window['file'].update(zipped_title_url[0])
+                #window['path'].update(course_path)
+                window.close()
+                file_select.render_file_select(zipped_title_url, course_path, logger_path, material_url, user_email)
 
-            display_text(f'\nThere are {len(zipped_title_url)} lessons in this course !!!\n', window, information_field)
+            else:
 
-            download_type = input_field('Which type of download '
-                + 'would you like to make: \n\t [S]ingle lesson, '
-                + '[R]ange of lessons, [A]ll lessons:\n\t', isGUI, 'options', ['Single Lesson', 'Range of lessons', 'All lessons'])
+                print(f'\nThere are {len(zipped_title_url)} lessons in this course !!!\n')
 
-            if download_type.upper() == 'A':
+                download_type = input('Which type of download '
+                    + 'would you like to make: \n\t [S]ingle lesson, '
+                    + '[R]ange of lessons, [A]ll lessons:\n\t')
+
+                if download_type.upper() == 'A':
+                    
+                    download_mode.download_all(zipped_title_url,course_path,logger_path)
                 
-                download_mode.download_all(zipped_title_url,course_path,logger_path)
-            
-            elif download_type.upper() =='R':
-                
-                user_range = input_field('Provide range of lesson to download:\n\t '
-                    + 'Use "," to seperate the range. eg. 1,20  :\n\t', isGUI, 'range')
-                
-                download_mode.range_download(user_range,zipped_title_url,course_path,logger_path)
+                elif download_type.upper() =='R':
+                    
+                    user_range = input('Provide range of lesson to download:\n\t '
+                        + 'Use "," to seperate the range. eg. 1,20  :\n\t')
+                    
+                    download_mode.range_download(user_range,zipped_title_url,course_path,logger_path)
 
-            elif download_type.upper() == 'S':
-                
-                user_esp = input_field('What a lesson number do you want eg. 10  :\n\t', isGUI, 'number')
+                elif download_type.upper() == 'S':
+                    
+                    user_esp = input('What a lesson number do you want eg. 10  :\n\t')
 
-                download_mode.single_download(user_esp,zipped_title_url,course_path,logger_path)
+                    download_mode.single_download(user_esp,zipped_title_url,course_path,logger_path)
 
-            download_course_mat = input_field('Would you like to download the course material:'
-                                        + '\n [Y]es to download or [N]o to skip: \n\t', isGUI, 'options', ['Yes', 'No'])
+                download_course_mat = input('Would you like to download the course material:'
+                                            + '\n [Y]es to download or [N]o to skip: \n\t')
 
-            if download_course_mat.upper()=='Y':
-                
-                material_url = extract_material_url_and_download.extract_course_material_url(src)
+                if download_course_mat.upper()=='Y':
 
-                if material_url:
+                    if material_url:
 
-                    extract_material_url_and_download.extract_course_material(material_url,course_path)
-                else:
-                    display_text('This course does not have materials attached !!!', window, information_field)
+                        extract_material_url_and_download.extract_course_material(material_url, course_path, 'course-material', isGUI, file_select.get_course_material_element(), window)
+                    else:
+                        print('This course does not have materials attached !!!')
 
         except ValueError as ve:
             display_text('\nIncorrect log-in details...Retry with correct log-in details\n' 
