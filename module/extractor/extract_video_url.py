@@ -25,8 +25,6 @@ def sign_in_and_extractHTML(user_email: str,password: str, course_link:str):
 
     src = br.parsed
 
-    print(src)
-
     return src
 
 
