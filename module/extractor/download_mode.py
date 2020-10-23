@@ -48,3 +48,15 @@ def download_all(zipped_title_url,course_path,logger_path):
 
             extract_video.update_logger(logger_path, title)
 
+def download_list_gui(to_download, course_path, logger_path, window):
+    for element in to_download:
+        cur_element = to_download[element]
+        url = str(cur_element['url']).strip('"')
+
+        download = extract_video.extract_video(url, cur_element['title'], course_path, True, cur_element, window)
+
+        if download == True:
+
+            extract_video.update_logger(logger_path, cur_element['title'])
+
+    window.write_event_value('download_finished', 0)

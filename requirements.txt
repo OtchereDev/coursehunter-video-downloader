@@ -3,3 +3,4 @@ requests
 robobrowser
 colorama
 tqdm
+PySimpleGUI

@@ -3,14 +3,14 @@ import requests
 
 import os
 
-from tqdm import tqdm
-
 from colorama import Fore
 
 from colorama import Style
 
+from module.extractor import download_iterator
 
-def extract_video(url,title,path):
+
+def extract_video(url, title, path, isGUI=False, element={}, window=None):
     
     link = url
 
@@ -28,43 +28,41 @@ def extract_video(url,title,path):
 
     if not os.path.exists(fr'{title}'):
 
-        print(f'\nDownloading lesson {lesson_number} \
-        titled {name}......\n')
+        if not isGUI:
+            print(f'\nDownloading lesson {lesson_number} \
+            titled {name}......\n')
 
-        with open(fr'{title}', 'wb') as f:
+        download_iterator.download_and_save_iterator(r, chunk_size, total_size, title, isGUI, window, element)
 
-            for data in tqdm(iterable=r.iter_content(chunk_size=chunk_size),
-                total= total_size/chunk_size, unit='KB'):
-
-                f.write(data)
-
-        print(f'\n{Fore.GREEN}Done downloading {name}{Style.RESET_ALL}')
+        if not isGUI:
+            print(f'\n{Fore.GREEN}Done downloading {name}{Style.RESET_ALL}')
 
         return True
 
     else:
 
-        print(f'\n{Fore.RED}Already exist lesson {lesson_number} \
-         titled {name}....{Style.RESET_ALL}\n')
+        if not isGUI:
+            print(f'\n{Fore.RED}Already exist lesson {lesson_number} \
+            titled {name}....{Style.RESET_ALL}\n')
 
         file_size = os.stat(title).st_size
 
 
-        if  file_size != total_size:
-            print('Updating old lesson...\n')
+        if file_size != total_size:
+            if not isGUI:
+                print('Updating old lesson...\n')
 
-            with open(title, 'wb') as f:
+            download_iterator.download_and_save_iterator(r, chunk_size, total_size, title, isGUI, window, element)
 
-                for data in tqdm(iterable=r.iter_content(chunk_size=chunk_size),
-                    total= total_size/chunk_size, unit='KB'):
+            if not isGUI:
+                print(f'{Fore.GREEN}Content updated.....{Style.RESET_ALL}\n')
+        else:
+            if isGUI:
+                window[element['progress_bar_key']].update(100)
+                window[element['percent_key']].update('-')
 
-                    f.write(data)
-            
-            print(f'{Fore.GREEN}Content updated.....{Style.RESET_ALL}\n')
-
-        print('Moving to next lesson....\n')
-
-        
+        if not isGUI:
+            print('Moving to next lesson....\n')
 
  
 def update_logger(logger_path,title):

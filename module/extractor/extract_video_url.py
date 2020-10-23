@@ -1,4 +1,6 @@
 
+import werkzeug
+werkzeug.cached_property = werkzeug.utils.cached_property
 from robobrowser import RoboBrowser
 
 import warnings
@@ -9,7 +11,7 @@ warnings.simplefilter('ignore', UserWarning)
 
 def sign_in_and_extractHTML(user_email: str,password: str, course_link:str):
 
-    br = RoboBrowser()
+    br = RoboBrowser(parser="lxml")
 
     br.open('https://coursehunter.net/sign-in')
 
@@ -31,7 +33,7 @@ def sign_in_and_extractHTML(user_email: str,password: str, course_link:str):
 
 def draw_out_script(src):
 
-    search = str(src.find_all('script')[2:3])
+    search = str(src.find_all('script')[2:4])
 
     return search
 
