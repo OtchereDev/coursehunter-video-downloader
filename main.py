@@ -6,7 +6,6 @@ from colorama import Fore
 
 from colorama import Style
 
-
 import sys
 
 # By default use gui

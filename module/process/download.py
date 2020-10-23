@@ -1,3 +1,7 @@
+from colorama import Fore
+
+from colorama import Style
+
 from module.create import create_folder, create_logger
 
 from module.extractor import extract_video, extract_video_url
@@ -41,7 +45,7 @@ def download(user_email, password, course_link, window=None, information_field=N
 
             else:
 
-                print(f'\nThere are {len(zipped_title_url)} lessons in this course !!!\n')
+                print(f'\n{Fore.RED}There are {len(zipped_title_url)} lessons in this course !!!{Style.RESET_ALL}\n') 
 
                 download_type = input('Which type of download '
                     + 'would you like to make: \n\t [S]ingle lesson, '
