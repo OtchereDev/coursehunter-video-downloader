@@ -42,7 +42,7 @@ try:
 
         zipped_title_url = extract_video_url.title_url(break_with_title)
 
-        print(f'\nThere are {len(zipped_title_url)} lessons in this course !!!\n')
+        print(f'\n{Fore.RED}There are {len(zipped_title_url)} lessons in this course !!!{Style.RESET_ALL}\n')
 
         download_type = input('Which type of download '
             + 'would you like to make: \n\t [S]ingle lesson, '

@@ -25,13 +25,15 @@ def sign_in_and_extractHTML(user_email: str,password: str, course_link:str):
 
     src = br.parsed
 
+    print(src)
+
     return src
 
 
 
 def draw_out_script(src):
 
-    search = str(src.find_all('script')[2:4])
+    search = str(src.find_all('script')[2:3])
 
     return search
 
@@ -49,7 +51,7 @@ def clean_out(original_text:str):
 
     leftover_aft_firstcut = merge_together[begin:-1]
 
-    last = leftover_aft_firstcut.index('vast') - 2
+    last = leftover_aft_firstcut.index('poster') - 2
 
     final_leftover = leftover_aft_firstcut[:last]
 
