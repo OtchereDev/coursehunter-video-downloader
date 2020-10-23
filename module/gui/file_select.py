@@ -31,17 +31,17 @@ def render_file_select(zipped_title_url, course_path, logger_path, material_url,
         percent_key = PERCENT_KEY_MOD + url
 
         lessons_list[url] = {'title': title, 'url': url, 'checkbox_key': checkbox_key, 'progress_bar_key': progress_bar_key, 'percent_key': percent_key}
-        col_layout.append([sg.Checkbox(title, key=checkbox_key), sg.HSeparator(), sg.ProgressBar(100, size=(13, 10), key=progress_bar_key), sg.T(' ', size=(7, 1), key=percent_key)])
+        col_layout.append([sg.Checkbox(title, key=checkbox_key, background_color='MediumPurple'), sg.HSeparator(), sg.ProgressBar(100, size=(13, 10), key=progress_bar_key), sg.T(' ', size=(7, 1), key=percent_key, background_color='MediumPurple')])
 
-    layout = [[sg.Text("Logged in as:"), sg.Text(user_email)],
-              [sg.Text("Select the files you want to download:")],
-              [sg.Column(col_layout, scrollable=True, vertical_scroll_only=True, justification='c', size=(580, 440))],
+    layout = [[sg.Text("Logged in as:", background_color='MediumPurple4'), sg.Text(user_email, background_color='MediumPurple4')],
+              [sg.Text("Select the files you want to download:", background_color='MediumPurple4')],
+              [sg.Column(col_layout, scrollable=True, vertical_scroll_only=True, justification='c', size=(580, 440), background_color='MediumPurple')],
               [sg.HorizontalSeparator()],
-              [sg.Checkbox('Download course material', key='course_material', tooltip="Disabled if there is no materials", disabled=not bool(material_url)), 
-                sg.HSeparator(), sg.ProgressBar(100, size=(13, 10), key='progress_course_material'), sg.T(' ', size=(7, 1), key='percent_course_material')],
-              [sg.Column([[sg.B('Download', key='download'), sg.B('Quit', key='quit')]], justification='center')]]
+              [sg.Checkbox('Download course material', key='course_material', tooltip="Disabled if there is no materials", disabled=not bool(material_url), background_color='MediumPurple4'), 
+                sg.HSeparator(), sg.ProgressBar(100, size=(13, 10), key='progress_course_material'), sg.T(' ', size=(7, 1), key='percent_course_material', background_color='MediumPurple4')],
+              [sg.Column([[sg.B('Download', key='download'), sg.B('Quit', key='quit')]], justification='center', background_color='MediumPurple4')]]
 
-    window = sg.Window('Coursehunter.net Downloader', layout, size=(700, 600))
+    window = sg.Window('Coursehunter.net Downloader', layout, size=(700, 600), font='Helvetica 13', background_color='MediumPurple4', button_color=['LightGrey', 'MediumPurple'])
 
     # Display and interact with the Window using an Event Loop
     while True:
@@ -69,7 +69,6 @@ def render_file_select(zipped_title_url, course_path, logger_path, material_url,
 
             # Reenable them
             _toggle_checkboxes(window, lessons_list, False)
-            window['download'].update(disabled=False)
 
         if event == "download_finished":
             window['download'].update(disabled=False)

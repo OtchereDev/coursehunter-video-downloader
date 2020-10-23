@@ -11,8 +11,7 @@ def download_and_save_iterator(r, chunk_size, total_size, title, isGUI=False, wi
                 download_percentage = ((chunk_size * (curr_chunk + 1)) / total_size) * 100
                 window[element['progress_bar_key']].update(download_percentage)
                 window[element['percent_key']].update(download_percentage)
-
-            f.write(data)
+                f.write(data)
 
         else:
             for data in tqdm(iterable=r.iter_content(chunk_size=chunk_size),

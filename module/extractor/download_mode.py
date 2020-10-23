@@ -58,3 +58,5 @@ def download_list_gui(to_download, course_path, logger_path, window):
         if download == True:
 
             extract_video.update_logger(logger_path, cur_element['title'])
+
+    window.write_event_value('download_finished', 0)
