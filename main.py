@@ -77,7 +77,7 @@ try:
                 extract_material_url_and_download.extract_course_material(material_url,course_path)
             else:
                 print('This course does not have materials attached !!!')
-
+        #validating user input
     except ValueError as ve:
         print('\nIncorrect log-in details...Retry with correct log-in details\n')
         print('Or it might be the url link to the course site\n')
