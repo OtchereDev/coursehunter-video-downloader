@@ -25,15 +25,13 @@ def sign_in_and_extractHTML(user_email: str,password: str, course_link:str):
 
     src = br.parsed
 
-    print(src)
-
     return src
 
 
 
 def draw_out_script(src):
 
-    search = str(src.find_all('script')[2:3])
+    search = str(src.find_all('script')[2:7])
 
     return search
 
