@@ -45,9 +45,9 @@ def clean_out(original_text:str):
 
     merge_together = merge_together.replace(' ','')
 
-    begin = merge_together.index('1)')
+    begin = merge_together.index('"1)')
 
-    leftover_aft_firstcut = merge_together[begin:-1]
+    leftover_aft_firstcut = (merge_together[begin:-1]).lstrip('"')
 
     last = leftover_aft_firstcut.index('poster') - 2
 
