@@ -1,4 +1,4 @@
-###### Required packages needed ######`
+###### Required packages needed ####`
 requests
 robobrowser
 colorama
